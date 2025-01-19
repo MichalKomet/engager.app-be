@@ -1,7 +1,21 @@
-import { getItemsQuery, createItemQuery } from "../repositories/itemsRepository.js";
+import {
+    getItemsQuery,
+    createItemQuery,
+    getItemByIdQuery
+} from "../repositories/itemsRepository.js";
 
 export const getItems = async () => {
   return getItemsQuery();
+};
+
+export const getItemById = async (id) => {
+  const item = await getItemByIdQuery(id);
+
+  if (!item) {
+      throw new Error('Item not found');
+  }
+
+  return item;
 };
 
 export const createItem = async (name, completionDate, dueDate) => {

@@ -7,6 +7,13 @@ export const getItemsQuery = async () => {
   return results.rows;
 };
 
+export const getItemByIdQuery = async (id) => {
+  const sql = `SELECT * FROM items WHERE id = $1`;
+  const results = await db.query(sql, [id]);
+
+  return results.rows[0];
+};
+
 export const createItemQuery = async (name, completionDate, dueDate) => {
   const sql = `
     INSERT INTO items (name, completion_date, due_date) 
