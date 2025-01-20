@@ -5,6 +5,7 @@ import {
     updateItemQuery,
     deleteItemQuery
 } from "../repositories/itemsRepository.js";
+import { NotFoundError } from "../../errors/NotFoundError.js";
 
 export const getItems = async () => {
   return getItemsQuery();
@@ -14,7 +15,7 @@ export const getItemById = async (id) => {
   const item = await getItemByIdQuery(id);
 
   if (!item) {
-      throw new Error('Item not found');
+      throw new NotFoundError('Item not found');
   }
 
   return item;
@@ -48,7 +49,7 @@ export const deleteItemById = async (id) => {
   const deletedItem = await deleteItemQuery(id);
 
   if (!deletedItem) {
-      throw new Error('Item not found');
+      throw new NotFoundError('Item not found');
   }
 
   return deletedItem;
