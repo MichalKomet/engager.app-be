@@ -1,7 +1,9 @@
 import {
     getItemsQuery,
+    getItemByIdQuery,
     createItemQuery,
-    getItemByIdQuery, deleteItemQuery
+    updateItemQuery,
+    deleteItemQuery
 } from "../repositories/itemsRepository.js";
 
 export const getItems = async () => {
@@ -26,6 +28,16 @@ export const createItem = async (name, completionDate, dueDate) => {
     }
 
     return newItem;
+};
+
+export const updateItemById = async (id, data) => {
+    const updatedItem = await updateItemQuery(id, data);
+
+    if (!updatedItem) {
+        throw new Error('Item not updated');
+    }
+
+    return updatedItem;
 };
 
 export const deleteItemById = async (id) => {

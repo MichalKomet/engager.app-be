@@ -21,6 +21,19 @@ export const createNewItem = async (req, res, next) => {
   }
 };
 
+export const updateItem = async (req, res, next) => {
+  try {
+      const itemId = req.params.id;
+      const body = req.body;
+
+      const updatedItem = await updateItemById(itemId, body);
+
+      return res.json(updatedItem);
+  } catch (e) {
+      next(e);
+  }
+};
+
 export const deleteItem = async (req, res, next) => {
   try {
       const itemId = req.params.id;
