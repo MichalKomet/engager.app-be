@@ -1,10 +1,7 @@
 import { validationResult } from 'express-validator';
-import { Router } from "express";
 import { ValidationError } from "../errors/ValidationError.js";
 
-const router = Router();
-
-export default router.use((err, req, res, next) => {
+export const globalErrorHandler = ((err, req, res, next) => {
     console.error(err);
 
     if (err.statusCode) {
@@ -23,8 +20,9 @@ export default router.use((err, req, res, next) => {
 
 export const handleValidationErrors = (req, res, next) => {
     const errors = validationResult(req);
+
     if (!errors.isEmpty()) {
-        throw new ValidationError(errors.array())
+        throw new ValidationError(errors.array());
     }
     next();
 };

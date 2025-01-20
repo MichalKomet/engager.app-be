@@ -11,10 +11,15 @@ import { handleValidationErrors } from "../../validations/handleValidationErrors
 
 const router = Router();
 
-router.get('/', getAllItems);
-router.get('/:id', ...itemIdValidationRules, handleValidationErrors, getItem);
-router.post('/', ...itemValidationRules, handleValidationErrors, createNewItem);
-router.put('/:id', ...itemIdValidationRules, ...itemValidationRules, handleValidationErrors, updateItem);
-router.delete('/:id', ...itemIdValidationRules, handleValidationErrors, deleteItem);
+const validateItemId = [...itemIdValidationRules, handleValidationErrors];
+const validateItemBody = [...itemValidationRules, handleValidationErrors];
+
+router.route('/')
+    .get(getAllItems)
+    .post(validateItemBody, createNewItem);
+router.route('/:id')
+    .get(validateItemId, getItem)
+    .put(validateItemId, validateItemBody, updateItem)
+    .delete(validateItemId, deleteItem)
 
 export default router;

@@ -1,6 +1,6 @@
 import express from 'express';
 import mainRouter from './src/index.js'
-import globalErrorHandler from './validations/handleValidationErrors.js'
+import { globalErrorHandler } from './validations/handleValidationErrors.js'
 
 const app = express();
 app.use(express.json());

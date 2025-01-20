@@ -39,7 +39,7 @@ export const updateItemById = async (id, data) => {
     const updatedItem = await updateItemQuery(id, { name, completionDate, dueDate } );
 
     if (!updatedItem) {
-        throw new Error('Item not updated');
+        throw new NotFoundError('Item not found');
     }
 
     return updatedItem;
