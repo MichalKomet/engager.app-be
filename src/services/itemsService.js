@@ -1,7 +1,7 @@
 import {
     getItemsQuery,
     createItemQuery,
-    getItemByIdQuery
+    getItemByIdQuery, deleteItemQuery
 } from "../repositories/itemsRepository.js";
 
 export const getItems = async () => {
@@ -26,4 +26,14 @@ export const createItem = async (name, completionDate, dueDate) => {
     }
 
     return newItem;
+};
+
+export const deleteItemById = async (id) => {
+  const deletedItem = await deleteItemQuery(id);
+
+  if (!deletedItem) {
+      throw new Error('Item not found');
+  }
+
+  return deletedItem;
 };

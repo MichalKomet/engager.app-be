@@ -1,4 +1,4 @@
-import { getItems, createItem } from "../services/itemsService.js";
+import { getItems, createItem, deleteItemById } from "../services/itemsService.js";
 
 export const getAllItems = async (req, res, next) => {
     try {
@@ -15,7 +15,19 @@ export const createNewItem = async (req, res, next) => {
 
       const newItem = await createItem(name, completion_date, due_date);
 
-      return res.json(newItem);
+      return res.status(201).json(newItem);
+  } catch (e) {
+      next(e);
+  }
+};
+
+export const deleteItem = async (req, res, next) => {
+  try {
+      const itemId = req.params.id;
+
+      const deletedItem = await deleteItemById(itemId);
+
+      return res.json(deletedItem);
   } catch (e) {
       next(e);
   }

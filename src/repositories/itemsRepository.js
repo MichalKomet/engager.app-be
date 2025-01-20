@@ -17,9 +17,15 @@ export const getItemByIdQuery = async (id) => {
 export const createItemQuery = async (name, completionDate, dueDate) => {
   const sql = `
     INSERT INTO items (name, completion_date, due_date) 
-    VALUES ($1, $2, $3)
-    RETURNING *`;
+    VALUES ($1, $2, $3)`;
 
   const results = await db.query(sql, [name, completionDate, dueDate]);
-  return results.rows[0];
+  return results.rows;
+};
+
+export const deleteItemQuery = async (id) => {
+  const sql = `DELETE FROM items WHERE id = $1`;
+
+  const results = await db.query(sql, [id]);
+  return results.rows;
 };
