@@ -1,13 +1,27 @@
 import {
     getItems,
+    getItemById,
     createItem,
     updateItemById,
     deleteItemById
 } from "../services/itemsService.js";
 
+export const getItem = async (req, res, next) => {
+    try {
+        const itemId = req.params.id;
+
+        const items = await getItemById(itemId);
+
+        return res.json(items);
+    } catch (e) {
+        next(e);
+    }
+};
+
 export const getAllItems = async (req, res, next) => {
     try {
         const items = await getItems();
+
         return res.json(items);
     } catch (e) {
         next(e);
