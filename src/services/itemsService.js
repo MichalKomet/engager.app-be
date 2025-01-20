@@ -20,8 +20,10 @@ export const getItemById = async (id) => {
   return item;
 };
 
-export const createItem = async (name, completionDate, dueDate) => {
-    const newItem = await createItemQuery(name, completionDate, dueDate);
+export const createItem = async (data) => {
+    const { name, completionDate, dueDate } = data;
+
+    const newItem = await createItemQuery({ name, completionDate, dueDate });
 
     if (!newItem) {
         throw new Error('Item not created');
@@ -31,7 +33,9 @@ export const createItem = async (name, completionDate, dueDate) => {
 };
 
 export const updateItemById = async (id, data) => {
-    const updatedItem = await updateItemQuery(id, data);
+    const { name, completionDate, dueDate } = data;
+
+    const updatedItem = await updateItemQuery(id, { name, completionDate, dueDate } );
 
     if (!updatedItem) {
         throw new Error('Item not updated');
