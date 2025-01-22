@@ -1,17 +1,30 @@
 import db from '../../database/dbConnection.js';
 
+const dateFormatter = (date) => date instanceof Object ?
+    new Date(date).toISOString().split('T')[0]
+    : null;
+
+const resMapper = (rows) => rows.map(row => ({
+  id: row.id,
+  name: row.name,
+  completionDate: dateFormatter(row.completion_date),
+  dueDate: dateFormatter(row.due_date)
+}));
+
 export const getItemsQuery = async () => {
   const sql = `SELECT * FROM items`;
   const { rows } = await db.query(sql);
 
-  return rows;
+  return resMapper(rows);
 };
 
 export const getItemByIdQuery = async (id) => {
   const sql = `SELECT * FROM items WHERE id = $1`;
   const { rows } = await db.query(sql, [id]);
 
-  return rows[0];
+  const mappedRes = resMapper(rows);
+
+  return mappedRes[0];
 };
 
 export const createItemQuery = async ({ name, completionDate, dueDate }) => {
@@ -21,7 +34,10 @@ export const createItemQuery = async ({ name, completionDate, dueDate }) => {
     RETURNING *`;
 
   const { rows } = await db.query(sql, [name, completionDate, dueDate]);
-  return rows[0];
+
+  const mappedRes = resMapper(rows);
+
+  return mappedRes[0];
 };
 
 export const updateItemQuery = async (id, { name, completionDate, dueDate }) => {
@@ -35,7 +51,10 @@ export const updateItemQuery = async (id, { name, completionDate, dueDate }) => 
     RETURNING *`;
 
   const { rows } = await db.query(sql, [id, name, completionDate, dueDate]);
-  return rows[0];
+
+  const mappedRes = resMapper(rows);
+
+  return mappedRes[0];
 };
 
 export const deleteItemQuery = async (id) => {
