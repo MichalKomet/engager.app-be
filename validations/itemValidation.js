@@ -6,11 +6,11 @@ export const itemValidationRules = [
         .isLength({ max: 100 }).withMessage('Name cannot exceed 100 characters'),
 
     body('completionDate')
-        .optional()
+        .optional({ nullable: true })
         .isDate().withMessage('Completion date must be YYYY-MM-DD format'),
 
     body('dueDate')
-        .optional()
+        .optional({ nullable: true })
         .isDate().withMessage('Due date must be YYYY-MM-DD format'),
 ];
 
