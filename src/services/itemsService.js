@@ -5,7 +5,7 @@ import {
     updateItemQuery,
     deleteItemQuery
 } from "../repositories/itemsRepository.js";
-import { NotFoundError } from "../../errors/NotFoundError.js";
+import { NotFoundError } from "../errors/NotFoundError.js";
 
 export const getItems = async () => {
   return getItemsQuery();

@@ -1,6 +1,6 @@
 import express from 'express';
 import mainRouter from './src/index.js'
-import { globalErrorHandler } from './validations/handleValidationErrors.js'
+import { globalErrorHandler } from './src/validations/handleValidationErrors.js'
 import cors from 'cors';
 
 const app = express();

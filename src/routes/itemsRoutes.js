@@ -6,8 +6,8 @@ import {
     updateItem,
     deleteItem,
 } from "../controllers/itemsController.js";
-import { itemIdValidationRules, itemValidationRules } from "../../validations/itemValidation.js";
-import { handleValidationErrors } from "../../validations/handleValidationErrors.js";
+import { itemIdValidationRules, itemValidationRules } from "../validations/itemValidation.js";
+import { handleValidationErrors } from "../validations/handleValidationErrors.js";
 
 const router = Router();
 
